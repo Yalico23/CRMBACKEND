@@ -35,6 +35,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
+//Carpeta Publica
+app.use(express.static('uploads'))
+
 //Definir un dominio(s) para recibir peticiones
 const whiteList = [process.env.FRONTED_URL]
 const corsOptions = {
@@ -54,8 +57,7 @@ app.use("/clientes", routerClientes);
 app.use("/productos", routerProductos); //localhost:3000/productos/...
 app.use("/pedidos", routerPedido)
 app.use("/usuarios", routerUsuarios)
-//Carpeta Publica
-app.use(express.static('uploads'))
+
 
 //puerto
 const port = process.env.PORT || 5000;
