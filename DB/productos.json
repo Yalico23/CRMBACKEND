@@ -1,0 +1,3 @@
+{"_id":{"$oid":"66b75e4014a1d5366c5042e5"},"nombre":"Polo HTML","precio":97,"imagen":"cropped-iWF9TiXYtWPHpH4bZvrnO.jpeg","__v":0}
+{"_id":{"$oid":"66c92440307fd29ed429baf8"},"nombre":"Camiseta Drupal","precio":70,"imagen":"cropped-9My09Hj86F3CYAbUU8789.jpeg","__v":0}
+{"_id":{"$oid":"66c92453307fd29ed429bafc"},"nombre":"Camiseta Node","precio":110,"imagen":"cropped-H2U6rz4N292BmaHy3sprA.jpeg","__v":0}
