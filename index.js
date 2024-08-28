@@ -39,7 +39,7 @@ app.use(express.json())
 app.use(express.static('uploads'))
 
 //Definir un dominio(s) para recibir peticiones
-const whiteList = ['https://crm-yalico.netlify.app' , 'http://localhost:5173']
+const whiteList = ['https://crm-yalico.netlify.app' , 'http://localhost:5173', 'https://crm.yalicodev.online']
 const corsOptions = {
   origin: (origin, callback) => {
     if(!origin || whiteList.includes(origin)){
