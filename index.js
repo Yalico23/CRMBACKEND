@@ -39,7 +39,7 @@ app.use(express.json())
 app.use(express.static('uploads'))
 
 //Definir un dominio(s) para recibir peticiones
-const whiteList = [process.env.FRONTED_URL , 'https://crm-yalico.netlify.app']
+const whiteList = ['https://crm-yalico.netlify.app' , 'http://localhost:5173']
 const corsOptions = {
   origin: (origin, callback) => {
     if(!origin || whiteList.includes(origin)){
@@ -50,8 +50,14 @@ const corsOptions = {
   }
 }
 //habilitar cors
-app.use(cors(corsOptions))
-//rutas app {EndPoints}
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 
 app.use("/clientes", routerClientes);
 app.use("/productos", routerProductos); //localhost:3000/productos/...
@@ -65,4 +71,5 @@ const host = process.env.HOST || '0.0.0.0'
 
 app.listen(port, host, () => {
   console.log("el puerto esta funcionando");
+  console.log(host," ",port)
 });
