@@ -4,22 +4,19 @@ import routerClientes from "./routes/ClienteRouter.js";
 import routerProductos from "./routes/ProductRouter.js";
 import routerPedido from "./routes/PedidoRouter.js";
 import routerUsuarios from "./routes/UsuarioRouter.js";
-import cors from 'cors'
-import dotenv from 'dotenv'
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-//Variables de entorno
-dotenv.config()
-
-//Cors Permite que un cliente se conecte a otro servidor para el intercambio de recursos
+// Variables de entorno
+dotenv.config();
 
 // Conectar a MongoDB
 const connectDB = async () => {
   try {
-    await mongoose
-      .connect(process.env.DB_URL, {
-        family: 4,
-      });
-      console.log("Conectado a MongoDB")
+    await mongoose.connect(process.env.DB_URL, {
+      family: 4,
+    });
+    console.log("Conectado a MongoDB");
   } catch (error) {
     console.error("Error al conectar a MongoDB", error);
     process.exit(1); // Salir del proceso con error
@@ -28,48 +25,41 @@ const connectDB = async () => {
 
 connectDB();
 
-//crear app
+// Crear app
 const app = express();
 
-//activar mandado json y post
+// Activar mandado json y post
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 
-//Carpeta Publica
-app.use(express.static('uploads'))
+// Carpeta Pública
+app.use(express.static('uploads'));
 
-//Definir un dominio(s) para recibir peticiones
-const whiteList = ['https://crm-yalico.netlify.app' , 'http://localhost:5173', 'https://crm.yalicodev.online']
+// Definir un dominio(s) para recibir peticiones
+const whiteList = ['https://crm.yalicodev.online'];
 const corsOptions = {
   origin: (origin, callback) => {
-    if(!origin || whiteList.includes(origin)){
-      callback(null,true)
-    }else{
-      callback(new Error('No permitido por Cors'))
+    if (!origin || whiteList.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por Cors'));
     }
   }
-}
-//habilitar cors
+};
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// Habilitar CORS
+app.use(cors(corsOptions));
 
-
+// Rutas
 app.use("/clientes", routerClientes);
-app.use("/productos", routerProductos); //localhost:3000/productos/...
-app.use("/pedidos", routerPedido)
-app.use("/usuarios", routerUsuarios)
+app.use("/productos", routerProductos); // localhost:3000/productos/...
+app.use("/pedidos", routerPedido);
+app.use("/usuarios", routerUsuarios);
 
-
-//puerto
+// Puerto
 const port = process.env.PORT || 5000;
-const host = process.env.HOST || '0.0.0.0'
+const host = process.env.HOST || '0.0.0.0';
 
 app.listen(port, host, () => {
-  console.log("el puerto esta funcionando");
-  console.log(host," ",port)
+  console.log(`El servidor está funcionando en http://${host}:${port}`);
 });
