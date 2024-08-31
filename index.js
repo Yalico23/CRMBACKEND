@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(express.static('uploads'));
 
 // Definir un dominio(s) para recibir peticiones
-const whiteList = ['https://crm.yalicodev.online'];
+const whiteList = ['https://crm.yalicodev.online', 'http://localhost:5173'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || whiteList.includes(origin)) {
