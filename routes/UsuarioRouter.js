@@ -4,7 +4,7 @@ import { registrarUsuario, autenticarUsuario } from '../controllers/UsuarioContr
 const routerUsuarios = express.Router()
 
 //endpoints
-routerUsuarios.post("/crear-cuenta", registrarUsuario)
-routerUsuarios.post("/iniciar-sesion",  autenticarUsuario)
+routerUsuarios.post("/register", registrarUsuario)
+routerUsuarios.post("/login",  autenticarUsuario)
 
 export default routerUsuarios
